@@ -452,10 +452,10 @@ If you use this project in academic research, please cite:
 
 ```bibtex
 @software{depression_detection_2026,
-  author = {Your Name},
+  author = {Augustin Bradley},
   title = {Multimodal Depression Detection System: Early Screening via Facial Expression and Voice Analysis},
   year = {2026},
-  url = {https://github.com/bradley2k19/DepressionDetection}
+  url = {https://github.com/bradley2k19/Multimodal_Depression_Detection.git}
 }
 ```
 
