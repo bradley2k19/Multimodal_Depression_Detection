@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Detection System - Multimodal Analysis</title>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Depression Detection System</h1>
+            <p class="subtitle">Multimodal AI Analysis • Facial + Voice Recognition</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel: Video Feed -->
+            <section class="video-section">
+                <div class="video-container">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    
+                    <!-- Video Overlay -->
+                    <div class="video-overlay">
+                        <div class="buffer-indicator">
+                            <span id="buffer-text">Ready to analyze</span>
+                            <div class="progress-bar">
+                                <div id="buffer-progress" class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="controls">
+                    <button id="start-btn" class="btn btn-primary">
+                        📹 Start Camera
+                    </button>
+                    <button id="analyze-btn" class="btn btn-success" disabled>
+                        🔴 Start Recording
+                    </button>
+                    <button id="download-btn" class="btn btn-secondary" disabled>
+                        📥 Download Report
+                    </button>
+                </div>
+                
+                <!-- Status -->
+                <div id="status" class="status-box">
+                    <span>⏸️ Click "Start Camera" to begin</span>
+                </div>
+            </section>
+
+            <!-- Right Panel: Risk Analysis -->
+            <section class="results-section">
+                <!-- Risk Gauge Card -->
+                <div class="card risk-card">
+                    <h3 class="card-title">📊 Risk Assessment</h3>
+                    <div class="risk-gauge">
+                        <canvas id="risk-gauge"></canvas>
+                        <div class="gauge-value">
+                            <div>
+                                <span id="risk-percentage">--</span>
+                                <span class="gauge-label">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="risk-level" class="risk-level">No Analysis Yet</div>
+                </div>
+
+                <!-- Statistics Card -->
+                <div class="card stats-card">
+                    <h3 class="card-title">📈 Session Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Analyses</span>
+                            <span id="analysis-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Average Risk</span>
+                            <span id="avg-risk" class="stat-value">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Last Update</span>
+                            <span id="last-update" class="stat-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Probability History Graph -->
+                <div class="card graph-card">
+                    <h3 class="card-title">📉 Risk Score History</h3>
+                    <canvas id="history-chart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Extended Results Section (Below main grid) -->
+        <div id="modality-breakdown" class="card"></div>
+
+        <!-- Feature Importance Section -->
+        <div id="feature-importance" class="card"></div>
+
+        <!-- Top Action Units -->
+        <div class="card au-card">
+            <h3 class="card-title">👁️ Facial Expression Analysis</h3>
+            <div id="au-list" class="au-list">
+                <p class="placeholder-text">No data yet</p>
+            </div>
+        </div>
+
+        <!-- Explanation -->
+        <div class="card explanation-card">
+            <h3 class="card-title">📋 Analysis Report</h3>
+            <p id="explanation-text" class="explanation-text">
+                Start by clicking "Start Camera", then record a video by clicking "Start Recording".
+                
+Record for 10-20 seconds while looking at the camera and speaking naturally. The system will analyze your facial expressions and voice characteristics.
+
+Click "Stop & Analyze" when you're done.
+            </p>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Analyzing facial features...</p>
+        </div>
+
+        <!-- Mobile Warning -->
+        <div class="mobile-notice">
+            <p>📱 For best experience, use landscape mode on mobile devices</p>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

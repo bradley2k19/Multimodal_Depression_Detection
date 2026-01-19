@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ENV/
+
+# Virtual Environment
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+temp_openface/
+temp_audio/
+analysis_reports/
+uploads/
+*.webm
+*.avi
+
+# Environment files
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Large model files (optional - keep commented if you want to commit)
+# best_depression_model.keras
+# voice_depression_detection_final.keras
